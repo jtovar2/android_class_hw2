@@ -41,12 +41,41 @@ public class ListViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        ViewHolder holder;
+        if(convertView == null) {
+            convertView = mLayoutInflater.inflate(R.layout.list_item, parent, false);
+            holder = new ViewHolder();
+            holder.textView = (TextView)convertView.findViewById(R.id.list_text1);
+            holder.textView2 = (TextView)convertView.findViewById(R.id.list_text2);
+            holder.textView3 = (TextView)convertView.findViewById(R.id.list_text3);
 
+            convertView.setTag(holder);
+        }
+        else
+        {
+            holder = (ViewHolder) convertView.getTag();
+        }
 
-        View rowView = mLayoutInflater.inflate(R.layout.list_item, parent, false);
-        TextView textView = (TextView) rowView.findViewById(R.id.list_view_row);
+        holder.textView.setText(String.valueOf(position));
+        holder.textView3.setText(String.valueOf(position));
 
-        textView.setText(String.valueOf(position));
-        return rowView;
+        if(position%2 == 0)
+        {
+            holder.textView.setVisibility(View.VISIBLE);
+            holder.textView3.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            holder.textView.setVisibility(View.INVISIBLE);
+            holder.textView3.setVisibility(View.VISIBLE);
+        }
+        return convertView;
     }
+}
+
+
+class ViewHolder {
+    public TextView textView;
+    public TextView textView2;
+    public TextView textView3;
 }
