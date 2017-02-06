@@ -36,7 +36,8 @@ public class MainActivity extends Activity {
         bt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "BUTTON1 was clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(v.getContext(), ViewPagerActivity.class);
+                startActivity(intent);
             }
         });
 

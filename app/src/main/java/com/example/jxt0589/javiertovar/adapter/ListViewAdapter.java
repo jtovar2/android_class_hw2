@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.example.jxt0589.javiertovar.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by JXT0589 on 1/25/17.
  */
@@ -17,15 +19,18 @@ import com.example.jxt0589.javiertovar.R;
 public class ListViewAdapter extends BaseAdapter {
     private Context mContext;
     private final LayoutInflater mLayoutInflater;
-    public ListViewAdapter(Context ctx)
+    private ArrayList<String> listResult;
+
+    public ListViewAdapter(Context ctx, ArrayList<String> newListResult)
     {
         mContext = ctx;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        listResult = newListResult;
     }
 
     @Override
     public int getCount() {
-        return 100;
+        return listResult.size();
     }
 
     @Override
@@ -58,6 +63,8 @@ public class ListViewAdapter extends BaseAdapter {
 
         holder.textView.setText(String.valueOf(position));
         holder.textView3.setText(String.valueOf(position));
+
+        holder.textView2.setText(listResult.get(position));
 
         if(position%2 == 0)
         {
