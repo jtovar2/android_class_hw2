@@ -3,148 +3,99 @@ package com.example.jxt0589.javiertovar;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.widget.EditText;
+import android.widget.RadioGroup;
+
+import com.example.jxt0589.javiertovar.dialog.CustomDialog;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by javier on 2/13/17.
  */
 
-public class DialogActivity
-{
+public class DialogActivity extends BaseActivity {
 
-    public void ListDialog()
-    {
-        final String[]  items =   {"item1", "itm2", "item3", "item4"""};
+    private int checkedID;
 
-        AlertDialog.Builder builder =  new AlertDialog.Builder(this);
-        builder.setTitle("I am list dialog");
-        builder.setIcon(R.mipmap.ic_launcher);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                toastShort("You clicked: " + items[which]);
-            }
-        });
-        builder.show();
-
+    @BindView(R.id.rdg) RadioGroup radioGroup;
+    @OnClick(R.id.dialog_ok)
+    public void onClick() {
+        switch(checkedID) {
+            case R.id.rb1:
+                normalDialog();
+                break;
+            case R.id.rb2:
+                listDialog();
+                break;
+            case R.id.rb3:
+                singleChoiceDialog();
+                break;
+            case R.id.rb4:
+                multiChoiceDialog();
+                break;
+            case R.id.rb5:
+                waitingDialog();
+                break;
+            case R.id.rb6:
+                progressDialog();
+                break;
+            case R.id.rb7:
+                inputDialog();
+                break;
+            case R.id.rb8:
+                customDialog();
+                break;
+            default:
+        }
     }
 
-    int choice = 0;
-    private void singleChoiceDialog()
-    {
-        final String[] items = {"items1", "items2", "items3", "item4"};
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Im a single choice dialog");
-        builder.setIcon(R.mipmap.ic_launcher);
-
-        builder.setSingleChoiceItems(items, choice, new DialogInterface.OnClickListener() {
+    private void customDialog() {
+        final CustomDialog dialog = new CustomDialog(this, new CustomDialog.ICustomDialogEventListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                choice = which;
+            public void onClickListener() {
+//                dialog.dismiss();
+                // You cannot place dialog here because dialog is currently being initialize in
+                // this line, so you cannot use this to call to dismiss the dialog because
+                // it does not reference anything currently
+                //toastShort("OK Button was clicked.");
 
+                Intent intent = new Intent();
+                intent.putExtra("message","Dialog");
+                setResult(RESULT_OK, intent);
+
+
+                // If you want to finish an activity manually, use the below;
+                finish();
             }
         });
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                toastShort("You clicked " + items[choice]);
-            }
-        });
-
-        builder.show();
-
+//        CustomDialog dialog = new CustomDialog(this);
+        dialog.setTitle("TestTitle");
+        dialog.show();
     }
 
-
-    ArrayList<Integer>  choices = new ArrayList<>();
-
-    private void multipleChoiceListener()
-    {
-        final String[] items = {"item1", "item2"};
-        final boolean initChoiceSets[] = {false, false};
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Im a multi choice Dialog");
-        builder.setMultiChoiceItems(items, initChoiceSets,
-                new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                        if (isChecked)
-                        {
-                            choices.add(which);
-                        }
-                        else
-                        {
-                            choices.remove(which);
-                        }
-                    }
-                });
-
-        builder.setPositiveButton("Ok",, new DialogInterface.OnClickListener(
-
-
-        ) {
-            /**
-             * This method will be invoked when a button in the dialog is clicked.
-             *
-             * @param dialog The dialog that received the click.
-             * @param which  The button that was clicked (e.g.
-             *               {@link DialogInterface#BUTTON1}) or the position
-             */
+    private void inputDialog() {
+        // Edit Text is a view.
+        final EditText editText = new EditText(this);
+        AlertDialog.Builder inputDialog = new AlertDialog.Builder(this);
+        inputDialog.setTitle("I'm an Input Dialog.").setView(editText);
+        inputDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                int size = choices.size();
-                String str = "";
-
-                for(int i = 0 ; i < size; i++)
-                {
-                    str += items[choices.get(i)] +  " ";
-                }
-                toastShort("You choose " + str);
+                toastShort(editText.getText().toString());
             }
         });
-
-        builder.setNegativeButton("cancel" , new DialogInterface.OnClickListener() {
-            /**
-             * This method will be invoked when a button in the dialog is clicked.
-             *
-             * @param dialog The dialog that received the click.
-             * @param which  The button that was clicked (e.g.
-             *               {@link DialogInterface#BUTTON1}) or the position
-             */
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                toastShort("Cancel");
-            }
-        });
+        inputDialog.setNegativeButton("Cancel", null).show();
     }
 
-
-
-    ProgressDialog waitingDialog;
-    private void waitingDialog()
-    {
-        waitingDialog = new ProgressDialog(this);
-        waitingDialog.setTitle("Im a waiting dialog");
-        waitingDialog.setMessage("waiting");
-        waitingDialog.setCancelable(true);
-        waitingDialog.show();
-
-        waitingDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                    toastShort("dialog was canceled");
-            }
-        });
-    }
-
-
-    private void progressDialog()
-    {
+    private void progressDialog() {
         final int MAX_PROGRESS = 100;
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setProgress(0);
@@ -156,46 +107,163 @@ public class DialogActivity
         new Thread(new Runnable() {
             @Override
             public void run() {
-                        int  progress =0;;
-                while(progress < MAX_PROGRESS)
-                {
+                int progress = 0;
+                while (progress < MAX_PROGRESS) {
                     try {
                         Thread.sleep(100);
                         progress++;
                         progressDialog.setProgress(progress);
-                    }
-                    catch(InterruptedException e)
-                    {
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-                    progressDialog.cancel();
                 }
+                progressDialog.cancel();
             }
         }).start();
-
     }
 
-    private void inputDialog()
-    {
-        final EditText editText = new EditText(this);
-        AlertDialog.Builder inputDialog =  new AlertDialog.Builder( this);
-        inputDialog.setTitle("I am an  Input dialog").setView(editText);
-        inputDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+    ProgressDialog waitingDialog;
+    private void waitingDialog() {
+        waitingDialog = new ProgressDialog(this);
+        waitingDialog.setTitle("I'm a waiting Dialog");
+        waitingDialog.setMessage("Waiting...");
+//        waitingDialog.setCancelable(false);
+        waitingDialog.setCancelable(true);
+        waitingDialog.show();
+        // When the dialogue disappears from the screen, you use the dismiss listener.
+        waitingDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                    toastShort(editText.getText().toString());
+            public void onDismiss(DialogInterface dialog) {
+                toastShort("Dialog was cancelled!");
             }
         });
-        inputDialog.setNegativeButton("cancel", null).show();
+
     }
-    private void normalDialog()
-    {
+
+    private void normalDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setIcon(R.mipmap.ic_launcher);
-        builder.setTitle("alerTitle");
-        builder.setMessage("This is a normal dialog");
+        builder.setTitle("AlertTitle");
+        builder.setMessage("This is a normal dialogue.");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                toastShort("You clicked Yes");
+            }
+        });
+        builder.setNeutralButton("Neutral", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                toastShort("You clicked Neutral");
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                toastShort("You clicked Cancel");
+            }
+        });
 
+        builder.show();
+    }
 
+    public void listDialog() {
+        final String[] items = { "item1", "item2", "item3", "item4" };
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("I'm a List Dialog");
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                toastShort("You clicked: "+items[which]);
+            }
+        });
+        builder.show();
+    }
+
+    int choice = 0;
+    public void singleChoiceDialog() {
+        final String[] items = { "item1", "item2", "item3", "item4" };
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("I'm a Single Choice Dialog");
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setSingleChoiceItems(items, choice, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                choice = which;
+            }
+        });
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                toastShort("You clicked: "+choice);
+            }
+        });
+        builder.show();
+    }
+
+    ArrayList<Integer> choices = new ArrayList<>();
+    public void multiChoiceDialog() {
+        final String[] items = { "item1", "item2", "item3", "item4" };
+        final boolean initChoiceSets[]={false, false, false, false};
+        choices.clear();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("I'm a multi-choice Dialog");
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setMultiChoiceItems(items, initChoiceSets, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if (isChecked) {
+                    choices.add(which);
+                } else {
+                    choices.remove(which);
+                }
+            }
+        });
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                int size = choices.size();
+                String str = "";
+                for (int i = 0; i < size; i++) {
+                    str += items[choices.get(i)] + " ";
+                }
+                toastShort("You chose: "+str);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                toastShort("You clicked Cancel");
+            }
+        });
+        builder.show();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_dialog);
+        ButterKnife.bind(this);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                toastShort("You checked the radio button"+checkedId);
+                checkedID = checkedId;
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("message","Dialog");
+        setResult(RESULT_OK, intent);
+        super.onBackPressed();
     }
 }

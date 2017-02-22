@@ -7,6 +7,8 @@ import android.support.v4.view.ViewGroupCompat;
 import android.support.v4.view.ViewPager;
 import android.view.ViewGroup;
 
+import com.example.jxt0589.javiertovar.util.UtilLog;
+
 import java.util.ArrayList;
 
 /**
@@ -28,6 +30,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     }
     @Override
     public Fragment getItem(int position) {
+        UtilLog.logD("ViewPagerAdapter", "yoo yoo  we at position " + position);
         return fragmentList.get(position);
     }
 
@@ -39,6 +42,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position)
     {
+        UtilLog.logD("ViewPagerAdapter", "hey hey we instatianting " + position);
         return super.instantiateItem(container, position);
     }
 
@@ -46,7 +50,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object obj)
     {
-
+        UtilLog.logD("ViewPagerAdapter", "we destroying " + position);
         super.destroyItem(container, position, obj);
         return;
     }
