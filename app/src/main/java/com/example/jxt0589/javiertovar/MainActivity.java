@@ -25,6 +25,7 @@ public class MainActivity extends BaseActivity {
     private ImageButton bt1;
     private ImageButton bt3;
     private ImageButton bt2;
+    private ImageButton bt4;
 
 
 
@@ -53,6 +54,7 @@ public class MainActivity extends BaseActivity {
         bt1 = (ImageButton) findViewById(R.id.bt1);
         bt3 = (ImageButton) findViewById(R.id.bt3);
         bt2 = (ImageButton) findViewById(R.id.bt2);
+        bt4 = (ImageButton) findViewById(R.id.bt_for_class_activity);
 
     }
 
@@ -92,6 +94,13 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        bt4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toClassExercise(v);
+            }
+        });
+
     }
 
 
@@ -115,6 +124,12 @@ public class MainActivity extends BaseActivity {
             case 4:
                 break;
         }
+    }
+
+
+    public void toClassExercise(View v)
+    {
+        toActivity(ActivityA.class);
     }
 
 }
