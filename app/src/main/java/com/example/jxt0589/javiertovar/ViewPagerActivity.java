@@ -26,13 +26,13 @@ public class ViewPagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager);
-        Intent intent = getIntent();
+ /*       Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         Book book = (Book) bundle.getSerializable("book");
 
         String message = intent.getStringExtra("key");
         UtilLog.logD("ViewPagerActivity", "value is " + message);
-        UtilLog.logD("ViewPagerActivity", "author " + book.getAuthor() + " name " + book.getName());
+        UtilLog.logD("ViewPagerActivity", "author " + book.getAuthor() + " name " + book.getName());*/
         initital();
     }
 

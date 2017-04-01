@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:id="@+id/dialog_rdg"
+        android:layout_width="match_parent"
+        android:layout_height="350dp">
+
+
+        <RadioButton
+            android:id="@+id/dialog_rb1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="left|center_vertical"
+            android:text="DialogActivity"
+            android:textSize="20sp"
+            />
+        <RadioButton
+            android:id="@+id/dialog_rb2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="left|center_vertical"
+            android:text="ListViewActivity"
+            android:textSize="20sp"/>
+
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:textSize="36sp"
+        android:id="@+id/custom_dialog_cancel_bt"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:textSize="36sp"
+        android:id="@+id/custom_dialog_ok_bt"
+        />
+    </LinearLayout>
+
+</LinearLayout>

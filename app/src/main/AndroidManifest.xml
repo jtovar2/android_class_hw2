@@ -28,26 +28,39 @@
         <activity
             android:name=".ActivityA"
             android:label="@string/title_activity_activity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-            android:launchMode="singleInstance"></activity>
-
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".ActivityB"
             android:label="@string/title_activity_activity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-            android:launchMode="singleTask"></activity>
-
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".ActivityC"
             android:label="@string/title_activity_activity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-            android:launchMode="singleTop"></activity>
-
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".ActivityD"
             android:label="@string/title_activity_activity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-            android:launchMode="standard"></activity>
+            android:launchMode="standard"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".TimerActivity"
+            android:label="@string/title_activity_timer"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".ActivityA2"
+            android:label="@string/title_activity_a2"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".AnimationActivity"
+            android:label="@string/title_activity_animation"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".AnimatorActivity"
+            android:label="@string/title_activity_animator"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
     </application>
 
 </manifest>
